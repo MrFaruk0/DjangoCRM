@@ -1,1 +1,32 @@
-<h1>Hello Worlds!</h1>
+{% extends "webapp/base.html" %}
+
+
+{% block content %}
+
+    <body>
+
+        <br>
+        <br>
+
+        <div class="text-center">
+
+            <h3>Welcome to the CRM App</h3>
+            <p class="lead">This is a simple CRM application built with Django.</p>
+            <p>Use the navigation bar to explore the features.</p>
+
+            <hr>
+            <br>
+            <a class="btn btn-primary" type="button" href="{% url 'register' %}">Create Account</a>
+
+
+
+
+
+        </div>
+
+    
+    </body>
+
+
+
+{% endblock %}
