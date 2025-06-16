@@ -4,6 +4,7 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Client
+from django.contrib import messages
 
 
 # Create your views here.
@@ -24,6 +25,8 @@ def register(request):
 
         if form.is_valid():
             form.save()
+
+            messages.success(request, 'Account created successfully! You can now login.')
 
             return redirect('my-login')
 
@@ -47,6 +50,8 @@ def login(request):
 
             if user is not None:
                 auth.login(request, user)
+
+                messages.success(request, 'Login successful!')
 
                 return redirect("dashboard")
 
@@ -76,6 +81,8 @@ def create_client(request):
         if form.is_valid():
             
             form.save()
+
+            messages.success(request, 'Client created successfully!')
             return redirect('dashboard')
         
     context = {'form': form}
@@ -93,7 +100,10 @@ def update_client(request, pk):
         form = UpdateClientForm(request.POST, instance=client)
 
         if form.is_valid():
+
             form.save()
+
+            messages.success(request, 'Client updated successfully!')
             return redirect('dashboard')
         
     context = {'form': form}
@@ -114,6 +124,8 @@ def delete_client(request, pk):
     client = Client.objects.get(id=pk)
 
     client.delete()
+
+    messages.success(request, 'Client deleted successfully!')
     return redirect('dashboard')
 
 
