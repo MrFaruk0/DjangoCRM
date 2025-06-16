@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, LoginForm
+from .forms import CreateUserForm, LoginForm, CreateClientForm, UpdateClientForm
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
@@ -62,6 +62,61 @@ def dashboard(request):
     context= {'clients': clients}
 
     return render(request, "webapp/dashboard.html", context=context)
+
+#Create client 
+
+@login_required(login_url='my-login')
+def create_client(request):
+
+    form = CreateClientForm()
+
+    if request.method == 'POST':
+        form = CreateClientForm(request.POST)
+
+        if form.is_valid():
+            
+            form.save()
+            return redirect('dashboard')
+        
+    context = {'form': form}
+    return render(request, 'webapp/create.html', context=context)
+
+
+#Update client
+@login_required(login_url='my-login')
+def update_client(request, pk):
+
+    client = Client.objects.get(id=pk)
+    form = UpdateClientForm(instance=client)
+
+    if request.method == 'POST':
+        form = UpdateClientForm(request.POST, instance=client)
+
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+        
+    context = {'form': form}
+    return render(request, 'webapp/update.html', context=context)
+
+#View client details
+@login_required(login_url='my-login')
+def view_client(request, pk):
+
+    client = Client.objects.get(id=pk)
+    context = {'client': client}
+
+    return render(request, 'webapp/view.html', context=context)
+
+#Delete client
+@login_required(login_url='my-login')
+def delete_client(request, pk):
+    client = Client.objects.get(id=pk)
+
+    client.delete()
+    return redirect('dashboard')
+
+
 
 
 

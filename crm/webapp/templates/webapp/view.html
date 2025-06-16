@@ -1,0 +1,58 @@
+{% extends 'webapp/base.html' %}
+
+
+{% block content %}
+
+    <div class="card">
+
+        &nbsp;
+
+        <strong>
+            
+            {{client.lastName | upper}}
+
+            {{client.firstName}}
+
+
+        </strong>
+
+
+        <div class="card-body">
+
+            <p><strong> ID: </strong>{{client.id}}</p> 
+
+            <p><strong> Email: </strong>{{client.email}}</p> 
+
+            <p><strong> Phone Number: </strong>{{client.phone}}</p>
+
+            <p><strong> Email: </strong>{{client.adress}}</p>
+
+            <p><strong> Email: </strong>{{client.city}}</p>
+
+            <p><strong> Email: </strong>{{client.province}}</p>
+
+            <p><strong> Email: </strong>{{client.country}}</p>
+
+            <p><strong> Email: </strong>{{client.creationDate}}</p>            
+        
+
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+
+    &nbsp;
+
+    <a href="{% url 'update' client.id %}" class="btn btn-info">Update</a>
+
+    &nbsp;
+
+    <a href="{% url 'delete' client.id %}" class="btn btn-danger">Delete</a>
+
+
+{% endblock %}
+
